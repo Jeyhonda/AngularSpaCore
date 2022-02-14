@@ -1,0 +1,33 @@
+<form [formGroup]="forecastForm" (submit)="onSubmit()" novalidate class="forecast-form">
+  <mat-form-field class="forecast-controls-full-width" style="padding-bottom: 20px;">
+    <input matInput type="datetime-local" placeholder="Choose a date" id="dateFormatted" formControlName="dateFormatted" [errorStateMatcher]="matcher">
+    <mat-hint>Errors appear on submission!</mat-hint>
+    <mat-error *ngIf="dateFormatted.hasError('required')">
+      Please enter a valid date and time
+    </mat-error>
+    <mat-error *ngIf="dateFormatted.hasError('existingDate')">
+      Date and time already
+      <strong>exists</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="forecast-controls-full-width">
+    <input matInput placeholder="Temperature in Celcius" id="temperatureC" formControlName="temperatureC">
+  </mat-form-field>
+
+  <mat-form-field class="forecast-controls-full-width">
+    <input matInput placeholder="Temperature in Farenheit" id="temperatureF" formControlName="temperatureF">
+  </mat-form-field>
+
+  <mat-form-field class="forecast-controls-full-width">
+    <mat-select id="summary" formControlName="summary">
+      <mat-option *ngFor="let summary of summaries" [value]="summary">
+        {{summary}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button type="submit" mat-raised-button color="accent">
+    Save
+  </button>
+</form>
